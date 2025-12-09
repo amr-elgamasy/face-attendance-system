@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نظام الحضور والانصراف - بصمة الوجه</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- face-api.js library -->
+    <script src="https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-top">
+                <button id="adminBtn" class="admin-link-btn">
+                    👨‍💼 لوحة التحكم
+                </button>
+            </div>
+            <h1>🎯 نظام الحضور والانصراف</h1>
+            <p class="subtitle">بصمة الوجه الذكية</p>
+        </header>
+
+        <div class="main-content">
+            <!-- قسم الكاميرا -->
+            <div class="camera-section">
+                <div class="camera-container">
+                    <video id="video" autoplay playsinline></video>
+                    <canvas id="canvas"></canvas>
+                    <div class="camera-overlay" id="overlay">
+                        <div class="scan-line"></div>
+                    </div>
+                </div>
+                
+                <div class="camera-controls">
+                    <button id="startCamera" class="btn btn-primary">
+                        📷 تشغيل الكاميرا
+                    </button>
+                    <button id="captureBtn" class="btn btn-success" disabled>
+                        ✅ تسجيل الحضور
+                    </button>
+                    <button id="checkoutBtn" class="btn btn-danger" disabled>
+                        🚪 تسجيل الانصراف
+                    </button>
+                </div>
+
+                <div class="model-status" id="modelStatus" style="text-align: center; padding: 10px; margin: 10px 0; border-radius: 8px; background: rgba(255,255,255,0.1); display: none;">
+                    ⏳ جاري تحميل نماذج التعرف على الوجه...
+                </div>
+
+                <div class="status-message" id="statusMessage"></div>
+            </div>
+
+            <!-- قسم معلومات المستخدم -->
+            <div class="info-section">
+                <div class="user-info">
+                    <h2>👤 معلومات المستخدم</h2>
+                    <div class="input-group">
+                        <label for="userName">الاسم:</label>
+                        <input type="text" id="userName" placeholder="أدخل اسمك">
+                    </div>
+                    <div class="input-group">
+                        <label for="userId">الرقم الوظيفي:</label>
+                        <input type="text" id="userId" placeholder="أدخل الرقم الوظيفي">
+                    </div>
+                </div>
+
+                <!-- سجل الحضور -->
+                <div class="attendance-log">
+                    <h2>📋 سجل اليوم</h2>
+                    <div class="log-container" id="logContainer">
+                        <p class="no-records">لا توجد سجلات حتى الآن</p>
+                    </div>
+                </div>
+
+                <!-- الإحصائيات -->
+                <div class="stats">
+                    <h2>📊 الإحصائيات</h2>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <span class="stat-value" id="totalAttendance">0</span>
+                            <span class="stat-label">عدد الحضور</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-value" id="totalCheckout">0</span>
+                            <span class="stat-label">عدد الانصراف</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

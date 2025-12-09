@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة تحكم الأدمن - إدارة الموظفين</title>
+    <link rel="stylesheet" href="admin-style.css">
+</head>
+<body>
+    <div class="admin-container">
+        <header class="admin-header">
+            <div class="header-content">
+                <h1>👨‍💼 لوحة تحكم الأدمن</h1>
+                <div class="header-actions">
+                    <button id="backToHome" class="btn btn-secondary">
+                        🏠 العودة للرئيسية
+                    </button>
+                    <button id="exportData" class="btn btn-info">
+                        📥 تصدير البيانات
+                    </button>
+                    <button id="clearAllData" class="btn btn-danger">
+                        🗑️ حذف جميع البيانات
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <div class="admin-content">
+            <!-- إعدادات النظام -->
+            <div class="settings-section">
+                <h2>⚙️ إعدادات أوقات العمل</h2>
+                <div class="settings-grid">
+                    <div class="setting-item">
+                        <label for="checkinTime">⏰ وقت الحضور:</label>
+                        <input type="time" id="checkinTime" value="09:00">
+                    </div>
+                    <div class="setting-item">
+                        <label for="checkoutTime">🕐 وقت الانصراف:</label>
+                        <input type="time" id="checkoutTime" value="17:00">
+                    </div>
+                    <div class="setting-item">
+                        <button id="saveSettings" class="btn btn-primary">💾 حفظ الإعدادات</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- إحصائيات عامة -->
+            <div class="stats-overview">
+                <div class="stat-box">
+                    <div class="stat-icon">👥</div>
+                    <div class="stat-info">
+                        <h3 id="totalEmployees">0</h3>
+                        <p>إجمالي الموظفين</p>
+                    </div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-icon">✅</div>
+                    <div class="stat-info">
+                        <h3 id="todayCheckins">0</h3>
+                        <p>حضور اليوم</p>
+                    </div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-icon">🚪</div>
+                    <div class="stat-info">
+                        <h3 id="todayCheckouts">0</h3>
+                        <p>انصراف اليوم</p>
+                    </div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-icon">📊</div>
+                    <div class="stat-info">
+                        <h3 id="totalRecords">0</h3>
+                        <p>إجمالي السجلات</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- أدوات البحث والتصفية -->
+            <div class="search-section">
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="🔍 ابحث بالاسم أو الرقم الوظيفي...">
+                </div>
+                <div class="filter-buttons">
+                    <button class="filter-btn active" data-filter="all">الكل</button>
+                    <button class="filter-btn" data-filter="registered">مسجلين فقط</button>
+                    <button class="filter-btn" data-filter="today">نشاط اليوم</button>
+                </div>
+            </div>
+
+            <!-- جدول الموظفين -->
+            <div class="employees-section">
+                <h2>📋 قائمة الموظفين المسجلين</h2>
+                <div class="table-container">
+                    <table class="employees-table">
+                        <thead>
+                            <tr>
+                                <th>الصورة</th>
+                                <th>الاسم</th>
+                                <th>الرقم الوظيفي</th>
+                                <th>تاريخ التسجيل</th>
+                                <th>آخر نشاط</th>
+                                <th>عدد السجلات</th>
+                                <th>الإجراءات</th>
+                            </tr>
+                        </thead>
+                        <tbody id="employeesTableBody">
+                            <tr>
+                                <td colspan="7" class="no-data">لا توجد بيانات</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- سجل الحضور والانصراف -->
+            <div class="records-section">
+                <h2>📝 سجل الحضور والانصراف الكامل</h2>
+                <div class="records-container" id="recordsContainer">
+                    <p class="no-data">لا توجد سجلات</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal لعرض تفاصيل الموظف -->
+    <div id="employeeModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>تفاصيل الموظف</h2>
+            <div id="employeeDetails"></div>
+        </div>
+    </div>
+
+    <script src="admin-script.js"></script>
+</body>
+</html>
