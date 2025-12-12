@@ -5,24 +5,55 @@
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #667eea 100%);
+    background-size: 400% 400%;
+    animation: gradientShift 15s ease infinite;
     min-height: 100vh;
     padding: 20px;
     direction: rtl;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    will-change: background-position;
+}
+
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
 }
 
 .container {
     max-width: 1400px;
     margin: 0 auto;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
 }
 
 header {
     text-align: center;
     color: white;
-    margin-bottom: 30px;
+    margin-bottom: 40px;
     animation: fadeInDown 0.8s ease;
     position: relative;
+    padding: 30px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 25px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
 }
 
 .header-top {
@@ -31,34 +62,61 @@ header {
 }
 
 .admin-link-btn {
-    padding: 12px 25px;
-    background: rgba(255, 255, 255, 0.2);
+    padding: 14px 30px;
+    background: rgba(255, 255, 255, 0.15);
     color: white;
-    border: 2px solid white;
-    border-radius: 10px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 12px;
     font-size: 1.1rem;
-    font-weight: bold;
+    font-weight: 600;
     cursor: pointer;
-    transition: all 0.3s;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    position: relative;
+    overflow: hidden;
+}
+
+.admin-link-btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+    will-change: width, height;
+}
+
+.admin-link-btn:hover::before {
+    width: 300%;
+    height: 300%;
 }
 
 .admin-link-btn:hover {
     background: white;
     color: #667eea;
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(255, 255, 255, 0.3);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(255, 255, 255, 0.3);
+    border-color: white;
 }
 
 header h1 {
-    font-size: 3rem;
-    margin-bottom: 10px;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    font-size: 3.5rem;
+    margin-bottom: 15px;
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    font-weight: 700;
+    letter-spacing: -1px;
 }
 
 .subtitle {
-    font-size: 1.2rem;
-    opacity: 0.9;
+    font-size: 1.4rem;
+    opacity: 0.95;
+    font-weight: 300;
+    letter-spacing: 1px;
 }
 
 .main-content {
@@ -70,21 +128,33 @@ header h1 {
 /* قسم الكاميرا */
 .camera-section {
     background: white;
-    border-radius: 20px;
-    padding: 30px;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+    border-radius: 24px;
+    padding: 35px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15), 0 0 1px rgba(0, 0, 0, 0.1);
     animation: fadeInLeft 0.8s ease;
+    transition: all 0.3s ease;
+}
+
+.camera-section:hover {
+    box-shadow: 0 25px 70px rgba(0, 0, 0, 0.2), 0 0 1px rgba(0, 0, 0, 0.1);
 }
 
 .camera-container {
     position: relative;
     width: 100%;
     max-width: 640px;
-    margin: 0 auto 20px;
-    border-radius: 15px;
+    margin: 0 auto 25px;
+    border-radius: 20px;
     overflow: hidden;
     background: #000;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+    border: 3px solid rgba(102, 126, 234, 0.2);
+    transition: all 0.3s ease;
+}
+
+.camera-container:hover {
+    border-color: rgba(102, 126, 234, 0.5);
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.5);
 }
 
 #video {
@@ -104,9 +174,10 @@ header h1 {
     width: 100%;
     height: 100%;
     pointer-events: none;
-    border: 3px solid #4CAF50;
+    border: 4px solid #4CAF50;
     opacity: 0;
-    transition: opacity 0.3s;
+    transition: opacity 0.4s ease;
+    box-shadow: inset 0 0 30px rgba(76, 175, 80, 0.3);
 }
 
 .camera-overlay.active {
@@ -116,43 +187,81 @@ header h1 {
 .scan-line {
     position: absolute;
     width: 100%;
-    height: 3px;
-    background: linear-gradient(90deg, transparent, #4CAF50, transparent);
-    animation: scan 2s linear infinite;
+    height: 4px;
+    background: linear-gradient(90deg, transparent, #4CAF50, #81C784, #4CAF50, transparent);
+    animation: scan 2s ease-in-out infinite;
+    box-shadow: 0 0 20px rgba(76, 175, 80, 0.8);
 }
 
 @keyframes scan {
-    0% { top: 0; }
-    100% { top: 100%; }
+    0%, 100% { 
+        top: 0; 
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% { 
+        top: 100%; 
+        opacity: 0;
+    }
 }
 
 .camera-controls {
     display: flex;
-    gap: 10px;
+    gap: 12px;
     justify-content: center;
     flex-wrap: wrap;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
 }
 
 .btn {
-    padding: 15px 30px;
+    padding: 16px 35px;
     border: none;
-    border-radius: 10px;
+    border-radius: 12px;
     font-size: 1.1rem;
-    font-weight: bold;
+    font-weight: 600;
     cursor: pointer;
-    transition: all 0.3s;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    position: relative;
+    overflow: hidden;
+    letter-spacing: 0.5px;
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateX(-100%);
+    transition: transform 0.5s ease;
+}
+
+.btn:hover::before {
+    transform: translateX(100%);
 }
 
 .btn:hover:not(:disabled) {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+
+.btn:active:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
 .btn:disabled {
-    opacity: 0.5;
+    opacity: 0.6;
     cursor: not-allowed;
+    filter: grayscale(0.3);
 }
 
 .btn-primary {
@@ -160,14 +269,26 @@ header h1 {
     color: white;
 }
 
+.btn-primary:hover:not(:disabled) {
+    background: linear-gradient(135deg, #5568d3 0%, #653a8b 100%);
+}
+
 .btn-success {
-    background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+    background: linear-gradient(135deg, #56CCF2 0%, #2F80ED 100%);
     color: white;
 }
 
+.btn-success:hover:not(:disabled) {
+    background: linear-gradient(135deg, #45bbdf 0%, #1e6fcf 100%);
+}
+
 .btn-danger {
-    background: linear-gradient(135deg, #f44336 0%, #da190b 100%);
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
     color: white;
+}
+
+.btn-danger:hover:not(:disabled) {
+    background: linear-gradient(135deg, #df82ea 0%, #dc4655 100%);
 }
 
 .detection-options {
@@ -230,32 +351,34 @@ header h1 {
 
 .status-message {
     text-align: center;
-    padding: 15px;
-    border-radius: 10px;
-    font-weight: bold;
+    padding: 18px;
+    border-radius: 14px;
+    font-weight: 600;
     min-height: 50px;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.3s;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    letter-spacing: 0.3px;
 }
 
 .status-message.success {
-    background: #d4edda;
+    background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
     color: #155724;
-    border: 2px solid #c3e6cb;
+    border: 2px solid #b1dfbb;
 }
 
 .status-message.error {
-    background: #f8d7da;
+    background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);
     color: #721c24;
-    border: 2px solid #f5c6cb;
+    border: 2px solid #f1b0b7;
 }
 
 .status-message.info {
-    background: #d1ecf1;
+    background: linear-gradient(135deg, #d1ecf1 0%, #b8daff 100%);
     color: #0c5460;
-    border: 2px solid #bee5eb;
+    border: 2px solid #abdde5;
 }
 
 /* قسم المعلومات */
@@ -270,19 +393,46 @@ header h1 {
 .attendance-log,
 .stats {
     background: white;
-    border-radius: 20px;
-    padding: 25px;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+    border-radius: 24px;
+    padding: 30px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15), 0 0 1px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.user-info:hover,
+.attendance-log:hover,
+.stats:hover {
+    box-shadow: 0 25px 70px rgba(0, 0, 0, 0.2), 0 0 1px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
 }
 
 .user-info h2,
 .attendance-log h2,
 .stats h2 {
     color: #667eea;
-    margin-bottom: 20px;
-    font-size: 1.5rem;
-    border-bottom: 3px solid #667eea;
-    padding-bottom: 10px;
+    margin-bottom: 25px;
+    font-size: 1.6rem;
+    font-weight: 700;
+    border-bottom: 3px solid transparent;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    padding-bottom: 15px;
+    position: relative;
+}
+
+.user-info h2::after,
+.attendance-log h2::after,
+.stats h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+    border-radius: 2px;
 }
 
 .input-group {
@@ -291,23 +441,33 @@ header h1 {
 
 .input-group label {
     display: block;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
     color: #333;
-    font-weight: bold;
+    font-weight: 600;
+    font-size: 1.05rem;
+    letter-spacing: 0.3px;
 }
 
 .input-group input {
     width: 100%;
-    padding: 12px;
-    border: 2px solid #ddd;
-    border-radius: 10px;
+    padding: 14px 18px;
+    border: 2px solid #e8e8e8;
+    border-radius: 12px;
     font-size: 1rem;
-    transition: border 0.3s;
+    transition: all 0.3s ease;
+    background: #fafafa;
+}
+
+.input-group input:hover {
+    background: white;
+    border-color: #d0d0d0;
 }
 
 .input-group input:focus {
     outline: none;
     border-color: #667eea;
+    background: white;
+    box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
 }
 
 .log-container {
@@ -316,74 +476,91 @@ header h1 {
 }
 
 .log-entry {
-    padding: 15px;
-    margin-bottom: 10px;
-    background: #f8f9fa;
-    border-radius: 10px;
+    padding: 18px;
+    margin-bottom: 12px;
+    background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+    border-radius: 14px;
     border-right: 4px solid #667eea;
     animation: slideIn 0.5s ease;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+}
+
+.log-entry:hover {
+    transform: translateX(-5px);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
 }
 
 .log-entry.checkout {
-    border-right-color: #f44336;
+    border-right-color: #f5576c;
 }
 
 .log-entry .name {
-    font-weight: bold;
+    font-weight: 700;
     color: #333;
-    font-size: 1.1rem;
-    margin-bottom: 5px;
+    font-size: 1.15rem;
+    margin-bottom: 8px;
+    letter-spacing: 0.3px;
 }
 
 .log-entry .time {
     color: #666;
-    font-size: 0.9rem;
+    font-size: 0.95rem;
+    font-weight: 500;
 }
 
 .log-entry .face-status {
     display: inline-block;
-    padding: 3px 10px;
-    border-radius: 15px;
-    font-size: 0.8rem;
-    margin-top: 5px;
-    margin-left: 5px;
-    font-weight: bold;
+    padding: 5px 14px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    margin-top: 8px;
+    margin-left: 8px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
 .log-entry .face-status.new {
-    background: #fff3cd;
+    background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
     color: #856404;
 }
 
 .log-entry .face-status.matched {
-    background: #d1ecf1;
+    background: linear-gradient(135deg, #d1ecf1 0%, #b8daff 100%);
     color: #0c5460;
 }
 
 .log-entry .type {
     display: inline-block;
-    padding: 4px 12px;
-    border-radius: 20px;
-    font-size: 0.85rem;
-    margin-top: 5px;
-    font-weight: bold;
+    padding: 6px 16px;
+    border-radius: 25px;
+    font-size: 0.9rem;
+    margin-top: 8px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .log-entry .type.checkin {
-    background: #d4edda;
+    background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
     color: #155724;
 }
 
 .log-entry .type.checkout {
-    background: #f8d7da;
+    background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);
     color: #721c24;
 }
 
 .no-records {
     text-align: center;
     color: #999;
-    padding: 40px;
+    padding: 60px 40px;
     font-style: italic;
+    font-size: 1.1rem;
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+    border-radius: 12px;
+    border: 2px dashed rgba(102, 126, 234, 0.2);
 }
 
 .stats-grid {
@@ -394,24 +571,53 @@ header h1 {
 
 .stat-card {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    padding: 25px;
-    border-radius: 15px;
+    padding: 30px;
+    border-radius: 20px;
     text-align: center;
     color: white;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.stat-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+    transition: all 0.6s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 15px 40px rgba(102, 126, 234, 0.5);
+}
+
+.stat-card:hover::before {
+    top: -60%;
+    right: -60%;
 }
 
 .stat-value {
     display: block;
-    font-size: 3rem;
-    font-weight: bold;
+    font-size: 3.5rem;
+    font-weight: 800;
     margin-bottom: 10px;
+    position: relative;
+    z-index: 1;
 }
 
 .stat-label {
     display: block;
-    font-size: 1rem;
-    opacity: 0.9;
+    font-size: 1.1rem;
+    opacity: 0.95;
+    font-weight: 300;
+    position: relative;
+    z-index: 1;
 }
 
 /* الأنيميشن */
