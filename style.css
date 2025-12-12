@@ -25,6 +25,19 @@ body {
 .container {
     max-width: 1400px;
     margin: 0 auto;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
 }
 
 header {
@@ -159,9 +172,10 @@ header h1 {
     width: 100%;
     height: 100%;
     pointer-events: none;
-    border: 3px solid #4CAF50;
+    border: 4px solid #4CAF50;
     opacity: 0;
-    transition: opacity 0.3s;
+    transition: opacity 0.4s ease;
+    box-shadow: inset 0 0 30px rgba(76, 175, 80, 0.3);
 }
 
 .camera-overlay.active {
@@ -171,22 +185,35 @@ header h1 {
 .scan-line {
     position: absolute;
     width: 100%;
-    height: 3px;
-    background: linear-gradient(90deg, transparent, #4CAF50, transparent);
-    animation: scan 2s linear infinite;
+    height: 4px;
+    background: linear-gradient(90deg, transparent, #4CAF50, #81C784, #4CAF50, transparent);
+    animation: scan 2s ease-in-out infinite;
+    box-shadow: 0 0 20px rgba(76, 175, 80, 0.8);
 }
 
 @keyframes scan {
-    0% { top: 0; }
-    100% { top: 100%; }
+    0%, 100% { 
+        top: 0; 
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% { 
+        top: 100%; 
+        opacity: 0;
+    }
 }
 
 .camera-controls {
     display: flex;
-    gap: 10px;
+    gap: 12px;
     justify-content: center;
     flex-wrap: wrap;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
 }
 
 .btn {
@@ -321,32 +348,34 @@ header h1 {
 
 .status-message {
     text-align: center;
-    padding: 15px;
-    border-radius: 10px;
-    font-weight: bold;
+    padding: 18px;
+    border-radius: 14px;
+    font-weight: 600;
     min-height: 50px;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.3s;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    letter-spacing: 0.3px;
 }
 
 .status-message.success {
-    background: #d4edda;
+    background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
     color: #155724;
-    border: 2px solid #c3e6cb;
+    border: 2px solid #b1dfbb;
 }
 
 .status-message.error {
-    background: #f8d7da;
+    background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);
     color: #721c24;
-    border: 2px solid #f5c6cb;
+    border: 2px solid #f1b0b7;
 }
 
 .status-message.info {
-    background: #d1ecf1;
+    background: linear-gradient(135deg, #d1ecf1 0%, #b8daff 100%);
     color: #0c5460;
-    border: 2px solid #bee5eb;
+    border: 2px solid #abdde5;
 }
 
 /* قسم المعلومات */
@@ -409,9 +438,11 @@ header h1 {
 
 .input-group label {
     display: block;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
     color: #333;
-    font-weight: bold;
+    font-weight: 600;
+    font-size: 1.05rem;
+    letter-spacing: 0.3px;
 }
 
 .input-group input {
@@ -442,74 +473,91 @@ header h1 {
 }
 
 .log-entry {
-    padding: 15px;
-    margin-bottom: 10px;
-    background: #f8f9fa;
-    border-radius: 10px;
+    padding: 18px;
+    margin-bottom: 12px;
+    background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+    border-radius: 14px;
     border-right: 4px solid #667eea;
     animation: slideIn 0.5s ease;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+}
+
+.log-entry:hover {
+    transform: translateX(-5px);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
 }
 
 .log-entry.checkout {
-    border-right-color: #f44336;
+    border-right-color: #f5576c;
 }
 
 .log-entry .name {
-    font-weight: bold;
+    font-weight: 700;
     color: #333;
-    font-size: 1.1rem;
-    margin-bottom: 5px;
+    font-size: 1.15rem;
+    margin-bottom: 8px;
+    letter-spacing: 0.3px;
 }
 
 .log-entry .time {
     color: #666;
-    font-size: 0.9rem;
+    font-size: 0.95rem;
+    font-weight: 500;
 }
 
 .log-entry .face-status {
     display: inline-block;
-    padding: 3px 10px;
-    border-radius: 15px;
-    font-size: 0.8rem;
-    margin-top: 5px;
-    margin-left: 5px;
-    font-weight: bold;
+    padding: 5px 14px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    margin-top: 8px;
+    margin-left: 8px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
 .log-entry .face-status.new {
-    background: #fff3cd;
+    background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
     color: #856404;
 }
 
 .log-entry .face-status.matched {
-    background: #d1ecf1;
+    background: linear-gradient(135deg, #d1ecf1 0%, #b8daff 100%);
     color: #0c5460;
 }
 
 .log-entry .type {
     display: inline-block;
-    padding: 4px 12px;
-    border-radius: 20px;
-    font-size: 0.85rem;
-    margin-top: 5px;
-    font-weight: bold;
+    padding: 6px 16px;
+    border-radius: 25px;
+    font-size: 0.9rem;
+    margin-top: 8px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .log-entry .type.checkin {
-    background: #d4edda;
+    background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
     color: #155724;
 }
 
 .log-entry .type.checkout {
-    background: #f8d7da;
+    background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);
     color: #721c24;
 }
 
 .no-records {
     text-align: center;
     color: #999;
-    padding: 40px;
+    padding: 60px 40px;
     font-style: italic;
+    font-size: 1.1rem;
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+    border-radius: 12px;
+    border: 2px dashed rgba(102, 126, 234, 0.2);
 }
 
 .stats-grid {
